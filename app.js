@@ -1,22 +1,19 @@
-// Listen for submit
-document.getElementById('loan-form').addEventListener('submit', function(e){
-  //Hide results
+ document.getElementById('loan-form').addEventListener('submit', function(e){
+
   document.getElementById('results').style.display='none';
 
-  //show loader
   document.getElementById('loading').style.display='block';
 
-  //to show the loading image for 2secs
   setTimeout(calculateResults, 2000);
 
 
   e.preventDefault();
 });
 
-// Calculate Results
+
 function calculateResults(){
   console.log('Calculating...');
-  // UI Variables
+  
   const amount = document.getElementById('amount');
   const interest = document.getElementById('interest');
   const years = document.getElementById('years');
@@ -28,7 +25,7 @@ function calculateResults(){
   const calculatedInterest = parseFloat(interest.value) / 100 / 12;
   const calculatedPayments = parseFloat(years.value) * 12;
 
-  // Compute monthly payment
+
   const x = Math.pow(1 + calculatedInterest, calculatedPayments);
   const monthly = (principal*x*calculatedInterest)/(x-1);
 
@@ -37,10 +34,10 @@ function calculateResults(){
     totalPayment.value = (monthly * calculatedPayments).toFixed(2);
     totalInterest.value = ((monthly * calculatedPayments)-principal).toFixed(2);
 
-    //to show the results after 2secs
+    
     document.getElementById('results').style.display='block';
 
-    //hide loader
+    
     document.getElementById('loading').style.display='none';
   } else {
     showError('please check your numbers');
@@ -49,7 +46,6 @@ function calculateResults(){
   
 }
 
-//show Error
 function showError(error){
 
   //Hide results 
@@ -58,23 +54,18 @@ function showError(error){
   //hide loader
   document.getElementById('loading').style.display='none';
 
-  //create a Div
+  
   const errorDiv = document.createElement('div');
 
-  //get Elements
   const card = document.querySelector('.card');
   const heading = document.querySelector('.heading');
 
-  //Add class
   errorDiv.className = "alert alert-danger";
 
-  //craete textnode and append to div
   errorDiv.appendChild(document.createTextNode(error));
 
-   //Insert error above heading
    card.insertBefore(errorDiv , heading);
 
-   //clear error after 3 seconds
    setTimeout(clearError, 3000);
 
 }
